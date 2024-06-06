@@ -42,8 +42,16 @@
         <font face='arial' color='#000066' size='4' style="background-color: #AFEEEE;">
           <b>Enter Sentence to Sign</b></font>
           <p>
-          <input type='text' name='sentencetext' placeholder='Sentence ...' />
-          <input type='button' name='signBtn' value='GENERATE' onclick='getGloss()'/>
+			<select name="sentencetext" id="sentenceSelect">
+				<option value="" selected disabled>Select a Sentence...</option>
+				<option value="AMERICA HAS MANY BLACK PEOPLE">AMERICA HAS MANY BLACK PEOPLE</option>
+				<option value="MY COUNTRY IS KENYA">MY COUNTRY IS KENYA</option>
+				<option value="BREAD WITHOUT BUTTER IS NOT SWEET">BREAD WITHOUT BUTTER IS NOT SWEET</option>
+				<!-- Add more options as needed -->
+			  </select>
+			  <button id="generateBtn" onclick="getGloss()">GENERATE</button>
+			  
+          
           <p>
             <font face='arial' color='#000066' size='4' style="background-color: #AFEEEE;">
               <b>Gloss of the sentence</b></font>
