@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>KSL Examples : Home Frame</title>
+  <link rel="stylesheet" href="scripts/bslex.css" />
+</head>
+<body>
+  <header id="header">
+    <div class="innertube">
+      <h2>
+        <font color="#000066" face="Arial, Helvetica, sans-serif">KSL Examples Home</font>
+      </h2>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="innertube" style="text-align: justify;">
+      <font face='arial' color='#000066' size='3'>
+        <b style="text-align: center">KSL stands for Kenyan Sign Language</b>
+        <br/>
+        It is the main source of communication for thousands of deaf Kenyans. Not only
+        does it differ from other sign languages such as ASL, it also has its own grammar 
+        that is different to spoken English.
+        <p>
+        <b style="text-align: center">How to use this site</b>
+        <br/>
+        Enter English sentence to be signed in the input field below. Click Generate button once done.
+        button to get the gloss and the stickman generated.
+        If you want to, you can zoom in on the avatar by dragging your mouse on it and
+        change the avatar by selecting
+        from the list under the avatar. Hopefully, this site will help you gain a better
+        understanding of how to sign.
+      </font>
+
+      <p>
+      <div style="float: left; width: 85%;">
+        <font face='arial' color='#000066' size='4' style="background-color: #AFEEEE;">
+          <b>Enter Sentence to Sign</b></font>
+          <p>
+          <input type='text' name='sentencetext' placeholder='Sentence ...' />
+          <input type='button' name='signBtn' value='GENERATE' onclick='getGloss()'/>
+          <p>
+            <font face='arial' color='#000066' size='4' style="background-color: #AFEEEE;">
+              <b>Gloss of the sentence</b></font>
+              <p id="gloss"></p>
+      </div>
+      
+      <div id="videoContainer">
+        <video id="videoPlayer" width="600" controls>
+          <source id="videoSource" src="" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      
+    </div>
+  </main>
+</body>
+<script language='javascript'>
+  var sentencesAndGloss = {
+    "AMERICA HAS MANY BLACK PEOPLE": "PEOPLE BLACK MANY AMERICA HAVE",
+    "MY COUNTRY IS KENYA": "COUNTRY MINE KENYA",
+    "BREAD WITHOUT BUTTER IS NOT SWEET": "BREAD BUTTER ZERO SWEET NOTHING",
+    // Add more sentences and their gloss here
+  };
+
+  function getGloss() {
+    // Get the input sentence from the input field
+    var sentence = document.getElementsByName("sentencetext")[0].value.toUpperCase(); // Convert to uppercase
+    console.log("Input sentence:", sentence);
+    // Check if the input sentence exists in the sentencesAndGloss dictionary as a key
+    if (sentence in sentencesAndGloss) {
+      // Get the gloss corresponding to the input sentence
+      var glossText = sentencesAndGloss[sentence];
+      document.getElementById("gloss").innerText = glossText;
+      console.log("Gloss for sentence:", glossText);
+      var gloss = glossText.replace(/\s+/g, '');
+      
+      var glossLower = gloss.toLowerCase();
+      console.log("Lowered Gloss sentence:", glossLower);
+      
+      // Create the video path
+      var videoPath = "SignVids/" + glossLower + ".mp4";
+      console.log("Video path:", videoPath);
+      startPlayer(videoPath);
+      
+    } else {
+      // Output a message indicating that the input sentence is not found in the dictionary
+      console.log("Sentence not found in dictionary.");
+    }
+  }
+
+  function startPlayer(objURL) {
+    var videoPlayer = document.getElementById("videoPlayer");
+    var videoSource = document.getElementById("videoSource");
+    videoSource.src = objURL;
+    videoPlayer.load();
+    videoPlayer.play().catch(error => {
+      console.error("Error playing video:", error);
+      alert("Error playing video. Please check the video file and format.");
+    });
+  }
+</script>
+</html>
